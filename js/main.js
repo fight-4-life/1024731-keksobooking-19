@@ -53,7 +53,7 @@ function getRandomObject(objectNumber) {
     },
     offer: {
       title: TITLES[objectNumber],
-      address: 'locationX, locationY',
+      address: locationX + ', ' + locationY,
       price: getRandomNumber(MIN_PRICE, MAX_PRICE),
       type: TYPES[getRandomNumber(0, TYPES.length)],
       rooms: getRandomNumber(0, MAX_ROOMS),
