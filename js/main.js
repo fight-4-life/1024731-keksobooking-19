@@ -81,11 +81,12 @@ function getObjectsArray() {
 
 var newOffer = getObjectsArray(ADS_QUANTITY);
 
-document.querySelector('.map').classList.remove('map--faded');
 var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var pinListElement = document.querySelector('.map__pins');
 
 function renderPin(offers) {
+  document.querySelector('.map').classList.remove('map--faded');
+
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < offers.length; i++) {
@@ -101,4 +102,35 @@ function renderPin(offers) {
   pinListElement.appendChild(fragment);
 }
 
-renderPin(newOffer);
+var form = document.querySelector('.ad-form');
+var formFieldsets = form.querySelectorAll('fieldset');
+
+function disableForm() {
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].setAttribute('disabled', '');
+  }
+}
+
+function enableForm() {
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].removeAttribute('disabled', '');
+  }
+}
+
+function getActiveForm() {
+  renderPin(ADS_QUANTITY);
+  enableForm();
+  form.classList.remove('ad-form--disabled');
+}
+
+var mapPinMain = document.querySelector('.map__pin—main');
+
+disableForm();
+var LEFT_BUTTON_MOUSE = 0;
+mapPinMain.addEventListener('mousedown', function (evt) {
+  if (evt.button === LEFT_BUTTON_MOUSE) {
+    getActiveForm();
+  }
+}
+);
+// renderPin(newOffer);
