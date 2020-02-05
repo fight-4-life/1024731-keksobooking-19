@@ -133,4 +133,4 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   }
 }
 );
-// renderPin(newOffer);
+renderPin(newOffer);
