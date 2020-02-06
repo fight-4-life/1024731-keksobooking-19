@@ -29,6 +29,35 @@ var Y_MIN = 130;
 var Y_MAX = 630;
 var DESCRIPTION = 'Типичное описание типичного объявления типичного вида';
 var LEFT_BUTTON_MOUSE = 0;
+var MAIN_PIN_X = 570;
+var MAIN_PIN_Y = 375;
+var MAIN_PIN_HEIGHT_AND_WIDTH = 65;
+var SPIRE_HEIGHT = 22;
+
+var addressInput = document.querySelector('#address');
+
+var currentOffer = {
+  author: {
+    avatar: null,
+  },
+  offer: {
+    title: null,
+    address: null,
+    price: null,
+    type: null,
+    rooms: null, // document.querySelector('#room_number').value,
+    guests: null,
+    checkin: null,
+    checkout: null,
+    features: null,
+    description: null,
+    photos: null,
+  },
+  location: {
+    x: MAIN_PIN_X + MAIN_PIN_HEIGHT_AND_WIDTH / 2,
+    y: MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH / 2
+  }
+};
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -80,8 +109,6 @@ function getObjectsArray() {
   return offers;
 }
 
-var newOffers = getObjectsArray();
-
 function renderPin(offers) {
   var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
   var pinListElement = document.querySelector('.map__pins');
@@ -111,7 +138,28 @@ function disableForm() {
 
 function enableForm() {
   for (var i = 0; i < formFieldsets.length; i++) {
-    formFieldsets[i].removeAttribute('disabled', '');
+    formFieldsets[i].removeAttribute('disabled');
+  }
+}
+
+var newOffers = getObjectsArray();
+
+var adForm = document.querySelector('.ad-form');
+var capacitySelect = adForm.querySelector('select[name=capacity]');
+var roomsSelect = adForm.querySelector('select[name=rooms');
+
+function roomsToGuestsValidation() {
+  var roomsValue = Number(roomsSelect.value);
+  var guestsValue = Number(capacitySelect.value);
+
+  if (guestsValue === 0 && roomsValue !== 100) {
+    capacitySelect.setCustomValidity('Только 100 комнат!');
+  } else if (guestsValue !== 0 && roomsValue === 100) {
+    capacitySelect.setCustomValidity('Не для гостей!');
+  } else if (roomsValue < guestsValue) {
+    capacitySelect.setCustomValidity('Слишком много гостей!');
+  } else {
+    capacitySelect.setCustomValidity('');
   }
 }
 
@@ -120,18 +168,32 @@ function activateForm() {
   enableForm();
   form.classList.remove('ad-form--disabled');
   document.querySelector('.map').classList.remove('map--faded');
+  currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
+  updateCurrentOfferLocation(currentOffer.location);
+  document.querySelector('#room_number').addEventListener('change', function () {
+    currentOffer.rooms = document.querySelector('#room_number').value;
+    roomsToGuestsValidation();
+  });
+  document.querySelector('#capacity').addEventListener('change', function () {
+    currentOffer.guests = document.querySelector('#capacity').value;
+  });
 }
 
-var mapPinMain = document.querySelector('.map__pin--main');
+function updateCurrentOfferLocation(location) {
+  addressInput.value = location.x + ', ' + location.y;
+}
 
-disableForm();
-
-mapPinMain.addEventListener('mousedown', function (evt) {
-  if (evt.button === LEFT_BUTTON_MOUSE) {
-    activateForm();
+function init() {
+  disableForm();
+  updateCurrentOfferLocation(currentOffer.location);
+  var mapPinMain = document.querySelector('.map__pin--main');
+  mapPinMain.addEventListener('click', function activateEventHandler(evt) {
+    if (evt.button === LEFT_BUTTON_MOUSE) {
+      activateForm();
+      mapPinMain.removeEventListener('click', activateEventHandler);
+    }
   }
+  );
 }
-);
 
-
-// renderPin(newOffers);
+init();
