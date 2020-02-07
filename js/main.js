@@ -45,7 +45,7 @@ var currentOffer = {
     address: null,
     price: null,
     type: null,
-    rooms: null, // document.querySelector('#room_number').value,
+    rooms: null,
     guests: null,
     checkin: null,
     checkout: null,
@@ -166,6 +166,7 @@ function roomsToGuestsValidation() {
 function activateForm() {
   renderPin(newOffers);
   enableForm();
+  updateCurrentOfferLocation(currentOffer.location);
   form.classList.remove('ad-form--disabled');
   document.querySelector('.map').classList.remove('map--faded');
   currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
@@ -185,7 +186,6 @@ function updateCurrentOfferLocation(location) {
 
 function init() {
   disableForm();
-  updateCurrentOfferLocation(currentOffer.location);
   var mapPinMain = document.querySelector('.map__pin--main');
   mapPinMain.addEventListener('click', function activateEventHandler(evt) {
     if (evt.button === LEFT_BUTTON_MOUSE) {
