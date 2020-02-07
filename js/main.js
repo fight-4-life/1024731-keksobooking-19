@@ -28,6 +28,36 @@ var xMax = document.body.clientWidth;
 var Y_MIN = 130;
 var Y_MAX = 630;
 var DESCRIPTION = 'Типичное описание типичного объявления типичного вида';
+var LEFT_BUTTON_MOUSE = 0;
+var MAIN_PIN_X = 570;
+var MAIN_PIN_Y = 375;
+var MAIN_PIN_HEIGHT_AND_WIDTH = 65;
+var SPIRE_HEIGHT = 22;
+
+var addressInput = document.querySelector('#address');
+
+var currentOffer = {
+  author: {
+    avatar: null,
+  },
+  offer: {
+    title: null,
+    address: null,
+    price: null,
+    type: null,
+    rooms: null,
+    guests: null,
+    checkin: null,
+    checkout: null,
+    features: null,
+    description: null,
+    photos: null,
+  },
+  location: {
+    x: MAIN_PIN_X + MAIN_PIN_HEIGHT_AND_WIDTH / 2,
+    y: MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH / 2
+  }
+};
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -44,15 +74,15 @@ function getRandomArray(arr) {
   return newArray;
 }
 
-function getRandomObject(objectNumber) {
+function getRandomObject(objectIndex) {
   var locationX = getRandomNumber(X_MIN, xMax);
   var locationY = getRandomNumber(Y_MIN, Y_MAX);
   return {
     author: {
-      avatar: 'img/avatars/user0' + (objectNumber + 1) + '.png'
+      avatar: 'img/avatars/user0' + (objectIndex + 1) + '.png'
     },
     offer: {
-      title: TITLES[objectNumber],
+      title: TITLES[objectIndex],
       address: locationX + ', ' + locationY,
       price: getRandomNumber(MIN_PRICE, MAX_PRICE),
       type: TYPES[getRandomNumber(0, TYPES.length)],
@@ -79,13 +109,9 @@ function getObjectsArray() {
   return offers;
 }
 
-var newOffer = getObjectsArray(ADS_QUANTITY);
-
-document.querySelector('.map').classList.remove('map--faded');
-var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var pinListElement = document.querySelector('.map__pins');
-
 function renderPin(offers) {
+  var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var pinListElement = document.querySelector('.map__pins');
   var fragment = document.createDocumentFragment();
 
   for (var i = 0; i < offers.length; i++) {
@@ -101,4 +127,74 @@ function renderPin(offers) {
   pinListElement.appendChild(fragment);
 }
 
-renderPin(newOffer);
+var form = document.querySelector('.ad-form');
+var formFieldsets = form.querySelectorAll('fieldset');
+
+function disableForm() {
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].setAttribute('disabled', '');
+  }
+}
+
+function enableForm() {
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].removeAttribute('disabled');
+  }
+}
+
+var newOffers = getObjectsArray();
+
+var adForm = document.querySelector('.ad-form');
+var capacitySelect = adForm.querySelector('#capacity');
+var roomsSelect = adForm.querySelector('#room_number');
+
+function roomsToGuestsValidation() {
+  var roomsValue = Number(roomsSelect.value);
+  var guestsValue = Number(capacitySelect.value);
+
+  if (guestsValue === 0 && roomsValue !== 100) {
+    capacitySelect.setCustomValidity('Только 100 комнат!');
+  } else if (guestsValue !== 0 && roomsValue === 100) {
+    capacitySelect.setCustomValidity('Не для гостей!');
+  } else if (roomsValue < guestsValue) {
+    capacitySelect.setCustomValidity('Слишком много гостей!');
+  } else {
+    capacitySelect.setCustomValidity('');
+  }
+}
+
+function activateForm() {
+  renderPin(newOffers);
+  enableForm();
+  roomsToGuestsValidation();
+  form.classList.remove('ad-form--disabled');
+  document.querySelector('.map').classList.remove('map--faded');
+  currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
+  updateCurrentOfferLocation(currentOffer.location);
+  document.querySelector('#room_number').addEventListener('change', function () {
+    currentOffer.rooms = document.querySelector('#room_number').value;
+    roomsToGuestsValidation();
+  });
+  document.querySelector('#capacity').addEventListener('change', function () {
+    currentOffer.guests = document.querySelector('#capacity').value;
+  });
+}
+
+function updateCurrentOfferLocation(location) {
+  addressInput.value = location.x + ', ' + location.y;
+}
+
+function init() {
+  disableForm();
+  updateCurrentOfferLocation(currentOffer.location);
+  var mapPinMain = document.querySelector('.map__pin--main');
+  mapPinMain.addEventListener('click', function activateEventHandler(evt) {
+    if (evt.button === LEFT_BUTTON_MOUSE) {
+      activateForm();
+      mapPinMain.removeEventListener('click', activateEventHandler);
+    }
+  }
+  );
+}
+
+init();
