@@ -145,8 +145,8 @@ function enableForm() {
 var newOffers = getObjectsArray();
 
 var adForm = document.querySelector('.ad-form');
-var capacitySelect = adForm.querySelector('select[name=capacity]');
-var roomsSelect = adForm.querySelector('select[name=rooms');
+var capacitySelect = adForm.querySelector('#capacity');
+var roomsSelect = adForm.querySelector('#room_number');
 
 function roomsToGuestsValidation() {
   var roomsValue = Number(roomsSelect.value);
@@ -166,7 +166,7 @@ function roomsToGuestsValidation() {
 function activateForm() {
   renderPin(newOffers);
   enableForm();
-  updateCurrentOfferLocation(currentOffer.location);
+  roomsToGuestsValidation();
   form.classList.remove('ad-form--disabled');
   document.querySelector('.map').classList.remove('map--faded');
   currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
@@ -186,6 +186,7 @@ function updateCurrentOfferLocation(location) {
 
 function init() {
   disableForm();
+  updateCurrentOfferLocation(currentOffer.location);
   var mapPinMain = document.querySelector('.map__pin--main');
   mapPinMain.addEventListener('click', function activateEventHandler(evt) {
     if (evt.button === LEFT_BUTTON_MOUSE) {
