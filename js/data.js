@@ -64,7 +64,6 @@
   }
 
   window.data = {
-    getRandomObject: getRandomObject,
     getObjectsArray: getObjectsArray
   };
 })();
