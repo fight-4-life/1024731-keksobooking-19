@@ -48,12 +48,8 @@
     window.pins.renderPin(offers);
   }
 
-  function onErrorLoad(error) {
-    console.error(error);
-  }
-
   function activateForm() {
-    window.load(onSuccessLoad, onErrorLoad);
+    window.load(onSuccessLoad);
     enableForm();
     window.formValidation.roomsToGuestsValidation();
     form.classList.remove('ad-form--disabled');

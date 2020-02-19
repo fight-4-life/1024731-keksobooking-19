@@ -12,8 +12,6 @@
       if (xhr.status === 200) {
         var offers = xhr.response.slice(0, 5);
         onSuccess(offers);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
