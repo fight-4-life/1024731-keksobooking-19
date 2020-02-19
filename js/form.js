@@ -44,10 +44,12 @@
     }
   }
 
-  var newOffers = window.data.getObjectsArray();
+  function onSuccessLoad(offers) {
+    window.pins.renderPin(offers);
+  }
 
   function activateForm() {
-    window.pins.renderPin(newOffers);
+    window.load(onSuccessLoad);
     enableForm();
     window.formValidation.roomsToGuestsValidation();
     form.classList.remove('ad-form--disabled');
