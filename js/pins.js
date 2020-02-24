@@ -22,7 +22,15 @@
     pinListElement.appendChild(fragment);
   }
 
+  function removePins() {
+    var mapPinsItems = document.querySelectorAll('.map__pin[type="button"]');
+    mapPinsItems.forEach(function (element) {
+      element.remove();
+    });
+  }
+
   window.pins = {
-    renderPin: renderPin
+    renderPin: renderPin,
+    removePins: removePins
   };
 })();

@@ -8,6 +8,7 @@
   var addressInput = document.querySelector('#address');
   var form = document.querySelector('.ad-form');
   var formFieldsets = form.querySelectorAll('fieldset');
+  var downloadedOffers = null;
 
   var currentOffer = {
     author: {
@@ -32,6 +33,12 @@
     }
   };
 
+  function handleChangeFilterForm() {
+    var filteredOffers = window.filter.returnFiltered(downloadedOffers);
+    window.pins.removePins();
+    window.pins.renderPin(filteredOffers);
+  }
+
   function disableForm() {
     for (var i = 0; i < formFieldsets.length; i++) {
       formFieldsets[i].setAttribute('disabled', '');
@@ -45,7 +52,10 @@
   }
 
   function onSuccessLoad(offers) {
-    window.pins.renderPin(offers);
+    window.filter.enable(handleChangeFilterForm);
+    downloadedOffers = offers;
+    var filteredOffers = window.filter.returnFiltered(downloadedOffers);
+    window.pins.renderPin(filteredOffers);
   }
 
   function activateForm() {
