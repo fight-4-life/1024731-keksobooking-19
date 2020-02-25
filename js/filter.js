@@ -11,19 +11,19 @@
   var MAX_PINS_QUANTITY = 5;
   var mapFilters = document.querySelector('.map__filters');
   var housingTypeSelector = document.querySelector('#housing-type');
-  var selectFilter = mapFilters.querySelectorAll('select');
+  var selectFilterNodeList = mapFilters.querySelectorAll('select');
 
   function enableFilter(eventHandler) {
-    for (var i = 0; i < selectFilter.length; i++) {
-      selectFilter[i].removeAttribute('disabled');
-    }
+    selectFilterNodeList.forEach(function (selectFilter) {
+      return selectFilter.removeAttribute('disabled');
+    });
     mapFilters.addEventListener('change', eventHandler);
   }
 
   function disableFilters(eventHandler) {
-    for (var i = 0; i < selectFilter.length; i++) {
-      selectFilter[i].setAttribute('disabled', 'disabled');
-    }
+    selectFilterNodeList.forEach(function (selectFilter) {
+      return selectFilter.setAttribute('disabled', 'disabled');
+    });
     mapFilters.removeEventListener('change', eventHandler);
   }
 

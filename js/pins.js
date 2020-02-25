@@ -4,7 +4,7 @@
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
-  function renderPin(offers) {
+  function renderPins(offers) {
     var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var pinListElement = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
@@ -30,7 +30,7 @@
   }
 
   window.pins = {
-    renderPin: renderPin,
+    renderPins: renderPins,
     removePins: removePins
   };
 })();
