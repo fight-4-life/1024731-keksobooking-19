@@ -10,8 +10,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === 200) {
-        var offers = xhr.response.slice(0, 5);
-        onSuccess(offers);
+        onSuccess(xhr.response);
       }
     });
     xhr.addEventListener('error', function () {
