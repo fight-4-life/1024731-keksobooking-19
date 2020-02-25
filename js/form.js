@@ -41,7 +41,7 @@
 
   function disableForm() {
     formFieldsets.forEach(function (formFieldset) {
-      formFieldset.setAttribute('disabled', '');
+      formFieldset.setAttribute('disabled', 'disabled');
     });
   }
 

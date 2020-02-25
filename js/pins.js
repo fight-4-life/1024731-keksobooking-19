@@ -9,16 +9,16 @@
     var pinListElement = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < offers.length; i++) {
+    offers.forEach(function (offer) {
       var pinElement = pinTemplate.cloneNode(true);
-      var offer = offers[i];
+
       pinElement.style.left = (offer.location.x - PIN_WIDTH / 2) + 'px';
       pinElement.style.top = (offer.location.y - PIN_HEIGHT) + 'px';
       pinElement.querySelector('img').src = offer.author.avatar;
       pinElement.querySelector('img').alt = offer.offer.title;
 
       fragment.appendChild(pinElement);
-    }
+    });
     pinListElement.appendChild(fragment);
   }
 
