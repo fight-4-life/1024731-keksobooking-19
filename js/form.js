@@ -40,15 +40,15 @@
   }
 
   function disableForm() {
-    for (var i = 0; i < formFieldsets.length; i++) {
-      formFieldsets[i].setAttribute('disabled', '');
-    }
+    formFieldsets.forEach(function (formFieldset) {
+      formFieldset.setAttribute('disabled', '');
+    });
   }
 
   function enableForm() {
-    for (var i = 0; i < formFieldsets.length; i++) {
-      formFieldsets[i].removeAttribute('disabled');
-    }
+    formFieldsets.forEach(function (formFieldset) {
+      formFieldset.removeAttribute('disabled');
+    });
   }
 
   function onSuccessLoad(offers) {

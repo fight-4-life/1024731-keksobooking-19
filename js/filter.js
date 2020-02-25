@@ -15,14 +15,14 @@
 
   function enableFilter(eventHandler) {
     selectFilterNodeList.forEach(function (selectFilter) {
-      return selectFilter.removeAttribute('disabled');
+      selectFilter.removeAttribute('disabled');
     });
     mapFilters.addEventListener('change', eventHandler);
   }
 
   function disableFilters(eventHandler) {
     selectFilterNodeList.forEach(function (selectFilter) {
-      return selectFilter.setAttribute('disabled', 'disabled');
+      selectFilter.setAttribute('disabled', 'disabled');
     });
     mapFilters.removeEventListener('change', eventHandler);
   }
