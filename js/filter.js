@@ -50,6 +50,7 @@
   window.filter = {
     enable: enableFilter,
     disable: disableFilters,
-    returnFiltered: returnFiltered
+    returnFiltered: returnFiltered,
+    HousingType: HousingType
   };
 })();

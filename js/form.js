@@ -66,7 +66,7 @@
     document.querySelector('.map').classList.remove('map--faded');
     currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
     updateCurrentOfferLocation(currentOffer.location);
-    document.querySelector('#room_number').addEventListener('change', function () {
+    document.querySelector('#room _number').addEventListener('change', function () {
       currentOffer.rooms = document.querySelector('#room_number').value;
       window.formValidation.roomsToGuestsValidation();
     });

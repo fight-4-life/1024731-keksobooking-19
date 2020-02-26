@@ -18,6 +18,10 @@
       pinElement.querySelector('img').alt = offer.offer.title;
 
       fragment.appendChild(pinElement);
+
+      pinElement.addEventListener('click', function () {
+        window.card.renderCards(offer);
+      });
     });
     pinListElement.appendChild(fragment);
   }
