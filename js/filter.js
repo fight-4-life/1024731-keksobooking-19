@@ -1,13 +1,6 @@
 'use strict';
 
 (function () {
-  var housingTypesMap = {
-    'any': 'any',
-    'palace': 'Дворец',
-    'flat': 'Квартира',
-    'house': 'Дом',
-    'bungalo': 'Бунгало'
-  };
 
   var MAX_PINS_QUANTITY = 5;
   var mapFilters = document.querySelector('.map__filters');
@@ -30,7 +23,7 @@
 
   function filterByHousingType(offer) {
     var filterValue = housingTypeSelector.value;
-    return (filterValue === housingTypesMap['any']) || (offer.offer.type === filterValue);
+    return (filterValue === 'any') || (filterValue === offer.offer.type);
   }
 
   function returnFiltered(offers) {
@@ -51,7 +44,6 @@
   window.filter = {
     enable: enableFilter,
     disable: disableFilters,
-    returnFiltered: returnFiltered,
-    housingTypesMap: housingTypesMap
+    returnFiltered: returnFiltered
   };
 })();

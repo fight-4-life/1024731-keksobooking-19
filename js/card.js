@@ -2,6 +2,13 @@
 
 (function () {
 
+  var housingTypesMap = {
+    'palace': 'Дворец',
+    'flat': 'Квартира',
+    'house': 'Дом',
+    'bungalo': 'Бунгало'
+  };
+
   var ESC_KEY = 'Escape';
 
   function processOfferData(element, hasData, text) {
@@ -12,7 +19,7 @@
     }
   }
 
-  function renderFetures(cardElement, features) {
+  function renderFeatures(cardElement, features) {
 
     var featuresListElement = cardElement.querySelector('.popup__features');
     var featuresList = featuresListElement.querySelectorAll('.popup__feature');
@@ -53,7 +60,12 @@
     var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
     var cardElement = cardTemplate.cloneNode(true);
 
-    cardElement.querySelector('.popup__avatar').src = offer.author.avatar;
+    var avatarElement = cardElement.querySelector('.popup__avatar');
+    if (avatarElement) {
+      avatarElement.src = offer.author.avatar;
+    } else {
+      avatarElement.style.display = 'none';
+    }
 
     var titleElement = cardElement.querySelector('.popup__title');
     processOfferData(titleElement, !!offer.offer.title, offer.offer.title);
@@ -65,7 +77,7 @@
     processOfferData(priceElement, !!offer.offer.price, offer.offer.price + '₽/ночь');
 
     var typeElement = cardElement.querySelector('.popup__type');
-    processOfferData(typeElement, !!window.filter.housingTypesMap[offer.offer.type], window.filter.housingTypesMap[offer.offer.type]);
+    processOfferData(typeElement, !!housingTypesMap[offer.offer.type], housingTypesMap[offer.offer.type]);
 
     var capacityElement = cardElement.querySelector('.popup__text--capacity');
     processOfferData(capacityElement, offer.offer.rooms > 0 && offer.offer.guests > 0, offer.offer.rooms + ' комнаты для ' + offer.offer.guests + ' гостей');
@@ -76,7 +88,7 @@
     var descriptionElement = cardElement.querySelector('.popup__description');
     processOfferData(descriptionElement, !!offer.offer.description, offer.offer.description);
 
-    renderFetures(cardElement, offer.offer.features);
+    renderFeatures(cardElement, offer.offer.features);
     renderPhotos(cardElement, offer.offer.photos);
 
     var map = document.querySelector('.map');
