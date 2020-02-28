@@ -55,7 +55,7 @@
     window.filter.enable(handleChangeFilterForm);
     downloadedOffers = offers;
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
-    window.pins.renderPins(filteredOffers);
+    window.pins.renderPin(filteredOffers);
   }
 
   function activateForm() {
