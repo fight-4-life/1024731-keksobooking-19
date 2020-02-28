@@ -4,7 +4,7 @@
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
 
-  function renderPins(offers) {
+  function renderPin(offers) {
     var pinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
     var pinListElement = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
@@ -20,6 +20,7 @@
       fragment.appendChild(pinElement);
 
       pinElement.addEventListener('click', function () {
+        window.card.closeOpenedCard();
         window.card.renderCards(offer);
       });
     });
@@ -34,7 +35,7 @@
   }
 
   window.pins = {
-    renderPins: renderPins,
+    renderPin: renderPin,
     removePins: removePins
   };
 })();
