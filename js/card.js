@@ -61,7 +61,7 @@
     var cardElement = cardTemplate.cloneNode(true);
 
     var avatarElement = cardElement.querySelector('.popup__avatar');
-    if (avatarElement) {
+    if (offer.author.avatar) {
       avatarElement.src = offer.author.avatar;
     } else {
       avatarElement.style.display = 'none';
