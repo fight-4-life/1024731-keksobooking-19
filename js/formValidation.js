@@ -42,7 +42,7 @@
         pricePerNight.setAttribute('min', '1000');
         pricePerNight.setAttribute('placeholder', '1000');
         break;
-      case HousingTypes.HUOSE:
+      case HousingTypes.HOUSE:
         pricePerNight.setAttribute('min', '5000');
         pricePerNight.setAttribute('placeholder', '5000');
         break;
@@ -51,12 +51,10 @@
         pricePerNight.setAttribute('placeholder', '10000');
         break;
     }
-
     typeSelect.addEventListener('change', housingTypeToMinPriceValidation);
   }
 
   function getTimeSync() {
-
     var timeInSelect = adForm.querySelector('#timein');
     var timeOutSelect = adForm.querySelector('#timeout');
     var timeInOptions = timeInSelect.querySelectorAll('option');
