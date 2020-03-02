@@ -62,7 +62,7 @@
     window.load(onSuccessLoad);
     enableForm();
     window.formValidation.roomsToGuestsValidation();
-    window.formValidation.housngTypeToMinPriceValidation();
+    window.formValidation.housingTypeToMinPriceValidation();
     window.formValidation.getTimeSync();
     form.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');

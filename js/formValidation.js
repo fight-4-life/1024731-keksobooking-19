@@ -28,32 +28,37 @@
     }
   }
 
-  var typeSelect = adForm.querySelector('#type');
-  var pricePerNight = adForm.querySelector('#price');
-
-  function housngTypeToMinPriceValidation() {
+  function housingTypeToMinPriceValidation() {
+    var typeSelect = adForm.querySelector('#type');
+    var pricePerNight = adForm.querySelector('#price');
     var type = typeSelect.value;
-    if (type === HousingTypes.BUNGALO) {
-      pricePerNight.setAttribute('min', '0');
-      pricePerNight.setAttribute('placeholder', '0');
-    } else if (type === HousingTypes.FLAT) {
-      pricePerNight.setAttribute('min', '1000');
-      pricePerNight.setAttribute('placeholder', '1000');
-    } else if (type === HousingTypes.HOUSE) {
-      pricePerNight.setAttribute('min', '5000');
-      pricePerNight.setAttribute('placeholder', '5000');
-    } else if (type === HousingTypes.PALACE) {
-      pricePerNight.setAttribute('min', '10000');
-      pricePerNight.setAttribute('placeholder', '10000');
+
+    switch (type) {
+      case HousingTypes.BUNGALO:
+        pricePerNight.setAttribute('min', '0');
+        pricePerNight.setAttribute('placeholder', '0');
+        break;
+      case HousingTypes.FLAT:
+        pricePerNight.setAttribute('min', '1000');
+        pricePerNight.setAttribute('placeholder', '1000');
+        break;
+      case HousingTypes.HUOSE:
+        pricePerNight.setAttribute('min', '5000');
+        pricePerNight.setAttribute('placeholder', '5000');
+        break;
+      case HousingTypes.PALACE:
+        pricePerNight.setAttribute('min', '10000');
+        pricePerNight.setAttribute('placeholder', '10000');
+        break;
     }
 
-    typeSelect.addEventListener('change', housngTypeToMinPriceValidation);
+    typeSelect.addEventListener('change', housingTypeToMinPriceValidation);
   }
 
-  var timeInSelect = adForm.querySelector('#timein');
-  var timeOutSelect = adForm.querySelector('#timeout');
-
   function getTimeSync() {
+
+    var timeInSelect = adForm.querySelector('#timein');
+    var timeOutSelect = adForm.querySelector('#timeout');
     var timeInOptions = timeInSelect.querySelectorAll('option');
     var timeOutOptions = timeOutSelect.querySelectorAll('option');
 
@@ -77,7 +82,7 @@
 
   window.formValidation = {
     roomsToGuestsValidation: roomsToGuestsValidation,
-    housngTypeToMinPriceValidation: housngTypeToMinPriceValidation,
+    housingTypeToMinPriceValidation: housingTypeToMinPriceValidation,
     getTimeSync: getTimeSync
   };
 })();
