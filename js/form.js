@@ -62,6 +62,8 @@
     window.load(onSuccessLoad);
     enableForm();
     window.formValidation.roomsToGuestsValidation();
+    window.formValidation.housingTypeToMinPriceValidation();
+    window.formValidation.getTimeSync();
     form.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
     currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
