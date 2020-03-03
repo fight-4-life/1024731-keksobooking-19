@@ -164,7 +164,7 @@
           mainPinHandle.style.left = coordinateX + 'px';
         }
 
-        function getAddress() {
+        function getAddressToForm() {
           var address = document.querySelector('#address');
           var mainPinTop = mainPinHandle.style.top;
           var mainPinLeft = mainPinHandle.style.left;
@@ -172,7 +172,7 @@
           address.setAttribute('value', addressValue);
           return address;
         }
-        getAddress();
+        getAddressToForm();
       }
 
       function onMouseUp(upEvt) {
