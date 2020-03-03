@@ -128,9 +128,9 @@
   }
 
   // ===>> Функция перетаскивания метки <<===
-  var mainPinHandle = document.querySelector('.map__pin--main');
 
   function pinDrugNDrop() {
+    var mainPinHandle = document.querySelector('.map__pin--main');
     var mapWidth = document.querySelector('body').clientWidth;
 
     mainPinHandle.addEventListener('mousedown', function (evt) {
@@ -163,6 +163,16 @@
         if (coordinateX < (mapWidth - (window.pins.PIN_WIDTH / 2)) && coordinateX > (mapWidth - mapWidth - (window.pins.PIN_WIDTH / 2))) {
           mainPinHandle.style.left = coordinateX + 'px';
         }
+
+        function getAddress() {
+          var address = document.querySelector('#address');
+          var mainPinTop = mainPinHandle.style.top;
+          var mainPinLeft = mainPinHandle.style.left;
+          var addressValue = parseInt(mainPinLeft, 10) + window.pins.PIN_WIDTH + ', ' + (parseInt(mainPinTop, 10) + window.pins.PIN_HEIGHT);
+          address.setAttribute('value', addressValue);
+          return address;
+        }
+        getAddress();
       }
 
       function onMouseUp(upEvt) {
@@ -171,13 +181,10 @@
         document.removeEventListener('mousemove', onMouseMove);
         window.removeEventListener('mousedown', onMouseUp);
       }
-
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
     });
-
   }
-
   window.card = {
     renderCards: renderCards,
     closeOpenedCard: closeOpenedCard,
