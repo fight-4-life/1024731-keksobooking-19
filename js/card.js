@@ -11,6 +11,9 @@
 
   var ESC_KEY = 'Escape';
 
+  var MIN_HEIGHT = 130;
+  var MAX_HEIGHT = 630;
+
   function processOfferData(element, hasData, text) {
     if (hasData) {
       element.textContent = text;
@@ -125,9 +128,11 @@
   }
 
   // ===>> Функция перетаскивания метки <<===
+  var mainPinHandle = document.querySelector('.map__pin--main');
 
   function pinDrugNDrop() {
-    var mainPinHandle = document.querySelector('.map__pin--main');
+    var mapWidth = document.querySelector('body').clientWidth;
+
     mainPinHandle.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
@@ -149,8 +154,15 @@
           y: moveEvt.clientY
         };
 
-        mainPinHandle.style.top = (mainPinHandle.offsetTop - shift.y) + 'px';
-        mainPinHandle.style.left = (mainPinHandle.offsetLeft - shift.x) + 'px';
+        var coordinateY = (mainPinHandle.offsetTop - shift.y);
+        var coordinateX = (mainPinHandle.offsetLeft - shift.x);
+
+        if (coordinateY > (MIN_HEIGHT - window.pins.PIN_HEIGHT / 2) && coordinateY < (MAX_HEIGHT + window.pins.PIN_HEIGHT / 2)) {
+          mainPinHandle.style.top = coordinateY + 'px';
+        }
+        if (coordinateX < (mapWidth - (window.pins.PIN_WIDTH / 2)) && coordinateX > (mapWidth - mapWidth - (window.pins.PIN_WIDTH / 2))) {
+          mainPinHandle.style.left = coordinateX + 'px';
+        }
       }
 
       function onMouseUp(upEvt) {
@@ -163,6 +175,7 @@
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
     });
+
   }
 
   window.card = {

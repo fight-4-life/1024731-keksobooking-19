@@ -5,7 +5,7 @@
 
   window.form.disableForm();
   window.filter.disable();
-  window.form.updateCurrentOfferLocation((window.form.currentOffer).location);
+  // window.form.updateCurrentOfferLocation((window.form.currentOffer).location);
   var mapPinMain = document.querySelector('.map__pin--main');
   mapPinMain.addEventListener('click', function activateEventHandler(evt) {
     if (evt.button === LEFT_BUTTON_MOUSE) {
