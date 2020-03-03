@@ -61,6 +61,7 @@
   function activateForm() {
     window.load(onSuccessLoad);
     enableForm();
+    window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
     window.formValidation.getTimeSync();
