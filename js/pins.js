@@ -36,8 +36,6 @@
 
   window.pins = {
     renderPin: renderPin,
-    removePins: removePins,
-    PIN_HEIGHT: PIN_HEIGHT,
-    PIN_WIDTH: PIN_WIDTH
+    removePins: removePins
   };
 })();

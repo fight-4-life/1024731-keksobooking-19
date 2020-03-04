@@ -132,11 +132,17 @@
   function pinDrugNDrop() {
     var mainPinHandle = document.querySelector('.map__pin--main');
     var mapWidth = document.querySelector('body').clientWidth;
+    var mainPinHeight = window.form.MAIN_PIN_HEIGHT_AND_WIDTH + window.form.SPIRE_HEIGHT;
+    var helfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
+    var currentPinCoordinates = {
+      x: window.form.currentOffer.location.x,
+      y: window.form.currentOffer.location.y
+    };
 
     mainPinHandle.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
-      var startCoords = {
+      var currentCursorCoordinates = {
         x: evt.clientX,
         y: evt.clientY
       };
@@ -145,11 +151,11 @@
         moveEvt.preventDefault();
 
         var shift = {
-          x: startCoords.x - moveEvt.clientX,
-          y: startCoords.y - moveEvt.clientY
+          x: currentCursorCoordinates.x - moveEvt.clientX,
+          y: currentCursorCoordinates.y - moveEvt.clientY
         };
 
-        startCoords = {
+        currentCursorCoordinates = {
           x: moveEvt.clientX,
           y: moveEvt.clientY
         };
@@ -157,22 +163,15 @@
         var coordinateY = (mainPinHandle.offsetTop - shift.y);
         var coordinateX = (mainPinHandle.offsetLeft - shift.x);
 
-        if (coordinateY > (MIN_HEIGHT - window.pins.PIN_HEIGHT / 2) && coordinateY < (MAX_HEIGHT + window.pins.PIN_HEIGHT / 2)) {
+        if (coordinateY >= MIN_HEIGHT - mainPinHeight && coordinateY <= (MAX_HEIGHT - mainPinHeight)) {
           mainPinHandle.style.top = coordinateY + 'px';
+          currentPinCoordinates.y = coordinateY + mainPinHeight;
         }
-        if (coordinateX < (mapWidth - (window.pins.PIN_WIDTH / 2)) && coordinateX > (mapWidth - mapWidth - (window.pins.PIN_WIDTH / 2))) {
+        if (coordinateX <= (mapWidth - helfMainPinWidth) && coordinateX >= (mapWidth - mapWidth - helfMainPinWidth)) {
           mainPinHandle.style.left = coordinateX + 'px';
+          currentPinCoordinates.x = coordinateX + helfMainPinWidth;
         }
-
-        function getAddressToForm() {
-          var address = document.querySelector('#address');
-          var mainPinTop = mainPinHandle.style.top;
-          var mainPinLeft = mainPinHandle.style.left;
-          var addressValue = parseInt(mainPinLeft, 10) + window.pins.PIN_WIDTH + ', ' + (parseInt(mainPinTop, 10) + window.pins.PIN_HEIGHT);
-          address.setAttribute('value', addressValue);
-          return address;
-        }
-        getAddressToForm();
+        window.form.updateCurrentOfferLocation(currentPinCoordinates);
       }
 
       function onMouseUp(upEvt) {

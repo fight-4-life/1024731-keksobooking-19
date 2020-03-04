@@ -3,7 +3,7 @@
 (function () {
   var MAIN_PIN_X = 570;
   var MAIN_PIN_Y = 375;
-  var MAIN_PIN_HEIGHT_AND_WIDTH = 65;
+  var MAIN_PIN_HEIGHT_AND_WIDTH = 62;
   var SPIRE_HEIGHT = 22;
   var addressInput = document.querySelector('#address');
   var form = document.querySelector('.ad-form');
@@ -68,7 +68,7 @@
     form.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
     currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
-    // updateCurrentOfferLocation(currentOffer.location);
+    updateCurrentOfferLocation(currentOffer.location);
     document.querySelector('#room_number').addEventListener('change', function () {
       currentOffer.rooms = document.querySelector('#room_number').value;
       window.formValidation.roomsToGuestsValidation();
@@ -87,5 +87,7 @@
     activateForm: activateForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
     currentOffer: currentOffer,
+    MAIN_PIN_HEIGHT_AND_WIDTH: MAIN_PIN_HEIGHT_AND_WIDTH,
+    SPIRE_HEIGHT: SPIRE_HEIGHT
   };
 })();
