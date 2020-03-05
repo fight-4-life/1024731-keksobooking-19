@@ -11,6 +11,9 @@
 
   var ESC_KEY = 'Escape';
 
+  var MIN_HEIGHT = 130;
+  var MAX_HEIGHT = 630;
+
   function processOfferData(element, hasData, text) {
     if (hasData) {
       element.textContent = text;
@@ -124,8 +127,66 @@
     }
   }
 
+  // ===>> Функция перетаскивания метки <<===
+
+  function pinDrugNDrop() {
+    var mainPinHandle = document.querySelector('.map__pin--main');
+    var mapWidth = document.querySelector('body').clientWidth;
+    var mainPinHeight = window.form.MAIN_PIN_HEIGHT_AND_WIDTH + window.form.SPIRE_HEIGHT;
+    var helfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
+    var currentPinCoordinates = {
+      x: window.form.currentOffer.location.x,
+      y: window.form.currentOffer.location.y
+    };
+
+    mainPinHandle.addEventListener('mousedown', function (evt) {
+      evt.preventDefault();
+
+      var currentCursorCoordinates = {
+        x: evt.clientX,
+        y: evt.clientY
+      };
+
+      function onMouseMove(moveEvt) {
+        moveEvt.preventDefault();
+
+        var shift = {
+          x: currentCursorCoordinates.x - moveEvt.clientX,
+          y: currentCursorCoordinates.y - moveEvt.clientY
+        };
+
+        currentCursorCoordinates = {
+          x: moveEvt.clientX,
+          y: moveEvt.clientY
+        };
+
+        var coordinateY = (mainPinHandle.offsetTop - shift.y);
+        var coordinateX = (mainPinHandle.offsetLeft - shift.x);
+
+        if (coordinateY >= MIN_HEIGHT - mainPinHeight && coordinateY <= (MAX_HEIGHT - mainPinHeight)) {
+          mainPinHandle.style.top = coordinateY + 'px';
+          currentPinCoordinates.y = coordinateY + mainPinHeight;
+        }
+        if (coordinateX <= (mapWidth - helfMainPinWidth) && coordinateX >= (mapWidth - mapWidth - helfMainPinWidth)) {
+          mainPinHandle.style.left = coordinateX + 'px';
+          currentPinCoordinates.x = coordinateX + helfMainPinWidth;
+        }
+        window.form.updateCurrentOfferLocation(currentPinCoordinates);
+      }
+
+      function onMouseUp(upEvt) {
+        upEvt.preventDefault();
+
+        document.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mousedown', onMouseUp);
+      }
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+  }
   window.card = {
     renderCards: renderCards,
-    closeOpenedCard: closeOpenedCard
+    closeOpenedCard: closeOpenedCard,
+    pinDrugNDrop: pinDrugNDrop
   };
 })();

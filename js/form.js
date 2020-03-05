@@ -3,7 +3,7 @@
 (function () {
   var MAIN_PIN_X = 570;
   var MAIN_PIN_Y = 375;
-  var MAIN_PIN_HEIGHT_AND_WIDTH = 65;
+  var MAIN_PIN_HEIGHT_AND_WIDTH = 62;
   var SPIRE_HEIGHT = 22;
   var addressInput = document.querySelector('#address');
   var form = document.querySelector('.ad-form');
@@ -61,6 +61,7 @@
   function activateForm() {
     window.load(onSuccessLoad);
     enableForm();
+    window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
     window.formValidation.getTimeSync();
@@ -85,6 +86,8 @@
     disableForm: disableForm,
     activateForm: activateForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
-    currentOffer: currentOffer
+    currentOffer: currentOffer,
+    MAIN_PIN_HEIGHT_AND_WIDTH: MAIN_PIN_HEIGHT_AND_WIDTH,
+    SPIRE_HEIGHT: SPIRE_HEIGHT
   };
 })();
