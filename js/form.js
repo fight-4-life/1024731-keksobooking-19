@@ -9,6 +9,9 @@
   var form = document.querySelector('.ad-form');
   var resetFormButton = form.querySelector('.ad-form__reset');
   var formFieldsets = form.querySelectorAll('fieldset');
+  var mainPin = document.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
+  var LEFT_BUTTON_MOUSE = 0;
   var downloadedOffers = null;
 
   var currentOffer = {
@@ -60,7 +63,7 @@
   }
 
   function activateForm() {
-    window.load.download(onSuccessLoad);
+    window.load.downloadData(onSuccessLoad);
     enableForm();
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
@@ -76,11 +79,23 @@
     });
     document.querySelector('#capacity').addEventListener('change', function () {
       currentOffer.guests = document.querySelector('#capacity').value;
+      window.formValidation.roomsToGuestsValidation();
     });
   }
 
   function updateCurrentOfferLocation(location) {
     addressInput.value = location.x + ', ' + location.y;
+  }
+
+  function onMainPinClick() {
+    var mapPinMain = document.querySelector('.map__pin--main');
+    mapPinMain.addEventListener('click', function activateEventHandler(evt) {
+      if (evt.button === LEFT_BUTTON_MOUSE) {
+        window.form.activateForm();
+        mapPinMain.removeEventListener('click', activateEventHandler);
+      }
+    }
+    );
   }
 
   function onPostSuccess() {
@@ -103,7 +118,15 @@
     window.addEventListener('click', onSuccessMessageClick);
     window.addEventListener('keydown', onSuccessMessageEscPress);
     document.body.appendChild(successMessage);
+    map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    window.pins.removePins();
     disableForm();
+    form.reset();
+    onMainPinClick();
+    mainPin.style.left = MAIN_PIN_X + 'px';
+    mainPin.style.top = MAIN_PIN_Y + 'px';
+    updateCurrentOfferLocation(currentOffer.location);
   }
 
   function onPostError(errorText) {
@@ -126,11 +149,15 @@
         errorMessage.remove();
       }
     }
+    window.addEventListener('click', onPostError);
+    window.addEventListener('keydown', onErrorMessageEscPress);
+    var main = document.querySelector('main');
+    main.appendChild(errorMessage);
   }
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.load.download(new FormData(form), onPostSuccess, onPostError);
+    window.load.getData(new FormData(form), onPostSuccess, onPostError);
   });
 
   resetFormButton.addEventListener('click', function () {
@@ -143,6 +170,7 @@
     updateCurrentOfferLocation: updateCurrentOfferLocation,
     currentOffer: currentOffer,
     MAIN_PIN_HEIGHT_AND_WIDTH: MAIN_PIN_HEIGHT_AND_WIDTH,
-    SPIRE_HEIGHT: SPIRE_HEIGHT
+    SPIRE_HEIGHT: SPIRE_HEIGHT,
+    onMainPinClick: onMainPinClick
   };
 })();
