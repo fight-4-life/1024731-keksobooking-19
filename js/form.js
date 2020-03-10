@@ -39,6 +39,7 @@
 
   function handleChangeFilterForm() {
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
+    window.card.closeOpenedCard();
     window.pins.removePins();
     window.pins.renderPin(filteredOffers);
   }
