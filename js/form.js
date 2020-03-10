@@ -7,7 +7,11 @@
   var SPIRE_HEIGHT = 22;
   var addressInput = document.querySelector('#address');
   var form = document.querySelector('.ad-form');
+  var resetFormButton = form.querySelector('.ad-form__reset');
   var formFieldsets = form.querySelectorAll('fieldset');
+  var mainPin = document.querySelector('.map__pin--main');
+  var map = document.querySelector('.map');
+  var LEFT_BUTTON_MOUSE = 0;
   var downloadedOffers = null;
 
   var currentOffer = {
@@ -59,7 +63,7 @@
   }
 
   function activateForm() {
-    window.load(onSuccessLoad);
+    window.load.getRequest(onSuccessLoad);
     enableForm();
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
@@ -75,6 +79,7 @@
     });
     document.querySelector('#capacity').addEventListener('change', function () {
       currentOffer.guests = document.querySelector('#capacity').value;
+      window.formValidation.roomsToGuestsValidation();
     });
   }
 
@@ -82,12 +87,90 @@
     addressInput.value = location.x + ', ' + location.y;
   }
 
+  function onMainPinClick() {
+    var mapPinMain = document.querySelector('.map__pin--main');
+    mapPinMain.addEventListener('click', function activateEventHandler(evt) {
+      if (evt.button === LEFT_BUTTON_MOUSE) {
+        window.form.activateForm();
+        mapPinMain.removeEventListener('click', activateEventHandler);
+      }
+    }
+    );
+  }
+
+  function onPostSuccess() {
+    var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successMessage = successMessageTemplate.cloneNode(true);
+
+    var onSuccessMessageClick = function () {
+      window.removeEventListener('click', onSuccessMessageClick);
+      window.removeEventListener('keydown', onSuccessMessageEscPress);
+      successMessage.remove();
+    };
+    var onSuccessMessageEscPress = function (evt) {
+      if (evt.key === window.card.ESC_KEY) {
+        window.removeEventListener('click', onSuccessMessageClick);
+        window.removeEventListener('keydown', onSuccessMessageEscPress);
+        successMessage.remove();
+      }
+    };
+
+    window.addEventListener('click', onSuccessMessageClick);
+    window.addEventListener('keydown', onSuccessMessageEscPress);
+    document.body.appendChild(successMessage);
+    map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    window.pins.removePins();
+    disableForm();
+    form.reset();
+    onMainPinClick();
+    mainPin.style.left = MAIN_PIN_X + 'px';
+    mainPin.style.top = MAIN_PIN_Y + 'px';
+    updateCurrentOfferLocation(currentOffer.location);
+  }
+
+  function onPostError(errorText) {
+    var errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorMessage = errorMessageTemplate.cloneNode(true);
+    errorMessage.querySelector('.error__message').textContent = errorText;
+
+    errorMessage.querySelector('.error__button').addEventListener('click', function () {
+      window.removeEventListener('click', onErrorMessageClick);
+      window.removeEventListener('keydown', onErrorMessageEscPress);
+      errorMessage.remove();
+    });
+    function onErrorMessageClick() {
+      window.removeEventListener('click', onErrorMessageClick);
+      errorMessage.remove();
+    }
+    function onErrorMessageEscPress(evt) {
+      if (evt.key === window.card.ESC_KEY) {
+        window.removeEventListener('keydown', onErrorMessageEscPress);
+        errorMessage.remove();
+      }
+    }
+    window.addEventListener('click', onPostError);
+    window.addEventListener('keydown', onErrorMessageEscPress);
+    var main = document.querySelector('main');
+    main.appendChild(errorMessage);
+  }
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.load.postRequest(new FormData(form), onPostSuccess, onPostError);
+  });
+
+  resetFormButton.addEventListener('click', function () {
+    form.reset();
+  });
+
   window.form = {
     disableForm: disableForm,
     activateForm: activateForm,
     updateCurrentOfferLocation: updateCurrentOfferLocation,
     currentOffer: currentOffer,
     MAIN_PIN_HEIGHT_AND_WIDTH: MAIN_PIN_HEIGHT_AND_WIDTH,
-    SPIRE_HEIGHT: SPIRE_HEIGHT
+    SPIRE_HEIGHT: SPIRE_HEIGHT,
+    onMainPinClick: onMainPinClick
   };
 })();

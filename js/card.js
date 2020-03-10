@@ -187,6 +187,7 @@
   window.card = {
     renderCards: renderCards,
     closeOpenedCard: closeOpenedCard,
-    pinDrugNDrop: pinDrugNDrop
+    pinDrugNDrop: pinDrugNDrop,
+    ESC_KEY: ESC_KEY
   };
 })();

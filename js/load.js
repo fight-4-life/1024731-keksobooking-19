@@ -2,22 +2,43 @@
 
 (function () {
 
-  var URL = 'https://js.dump.academy/keksobooking/data';
+  var URL_GET = 'https://js.dump.academy/keksobooking/data';
+  var URL_POST = 'https://js.dump.academy/keksobooking';
+  var StatusCode = {
+    OK: 200
+  };
 
-  window.load = function (onSuccess, onError) {
+  function makeRequest(onSuccess, onPostError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
+      } else {
+        onPostError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      onPostError('Произошла ошибка соединения');
     });
+    return xhr;
+  }
 
-    xhr.open('GET', URL);
+  function getRequest(onPostSuccess, onError) {
+    var xhr = makeRequest(onPostSuccess, onError);
+    xhr.open('GET', URL_GET);
     xhr.send();
+  }
+
+  function postRequest(data, onPostSuccess, onPostError) {
+    var xhr = makeRequest(onPostSuccess, onPostError);
+    xhr.open('POST', URL_POST);
+    xhr.send(data);
+  }
+
+  window.load = {
+    postRequest: postRequest,
+    getRequest: getRequest
   };
 })();
