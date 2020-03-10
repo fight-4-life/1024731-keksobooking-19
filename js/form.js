@@ -63,7 +63,7 @@
   }
 
   function activateForm() {
-    window.load.downloadData(onSuccessLoad);
+    window.load.getRequest(onSuccessLoad);
     enableForm();
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
@@ -157,7 +157,7 @@
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.load.getData(new FormData(form), onPostSuccess, onPostError);
+    window.load.postRequest(new FormData(form), onPostSuccess, onPostError);
   });
 
   resetFormButton.addEventListener('click', function () {

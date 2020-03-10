@@ -25,20 +25,20 @@
     return xhr;
   }
 
-  function downloadData(onPostSuccess, onError) {
+  function getRequest(onPostSuccess, onError) {
     var xhr = makeRequest(onPostSuccess, onError);
     xhr.open('GET', URL_GET);
     xhr.send();
   }
 
-  function getData(data, onPostSuccess, onPostError) {
+  function postRequest(data, onPostSuccess, onPostError) {
     var xhr = makeRequest(onPostSuccess, onPostError);
     xhr.open('POST', URL_POST);
     xhr.send(data);
   }
 
   window.load = {
-    getData: getData,
-    downloadData: downloadData
+    postRequest: postRequest,
+    getRequest: getRequest
   };
 })();
