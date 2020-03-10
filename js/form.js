@@ -64,6 +64,7 @@
 
   function activateForm() {
     window.load.getRequest(onSuccessLoad);
+    window.filter.mapFilters.reset();
     enableForm();
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
