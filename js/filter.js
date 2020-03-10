@@ -10,6 +10,8 @@
   var housingGuestsSelector = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelectorAll('.map__checkbox');
   var selectFilterNodeList = mapFilters.querySelectorAll('select');
+  var LOW_HOUSING_PRICE = 10000;
+  var HIGHT_HOUSING_PRICE = 50000;
 
   function enableFilter(eventHandler) {
     selectFilterNodeList.forEach(function (selectFilter) {
@@ -36,13 +38,13 @@
 
     switch (housingPrice) {
       case 'low':
-        result = offer.offer.price < 10000;
+        result = offer.offer.price < LOW_HOUSING_PRICE;
         break;
       case 'middle':
-        result = offer.offer.price >= 10000 && offer.offer.price <= 50000;
+        result = offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGHT_HOUSING_PRICE;
         break;
       case 'high':
-        result = offer.offer.price > 50000;
+        result = offer.offer.price > HIGHT_HOUSING_PRICE;
         break;
       case 'any':
       default:
