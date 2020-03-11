@@ -42,7 +42,6 @@
         return offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGHT_HOUSING_PRICE;
       case 'high':
         return offer.offer.price > HIGHT_HOUSING_PRICE;
-      case 'any':
       default:
         return true;
     }
