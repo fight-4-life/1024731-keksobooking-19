@@ -34,34 +34,28 @@
 
   function filterByHousingPrice(offer) {
     var housingPrice = housingPriceSelector.value;
-    var result;
 
     switch (housingPrice) {
       case 'low':
-        result = offer.offer.price < LOW_HOUSING_PRICE;
-        break;
+        return offer.offer.price < LOW_HOUSING_PRICE;
       case 'middle':
-        result = offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGHT_HOUSING_PRICE;
-        break;
+        return offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGHT_HOUSING_PRICE;
       case 'high':
-        result = offer.offer.price > HIGHT_HOUSING_PRICE;
-        break;
+        return offer.offer.price > HIGHT_HOUSING_PRICE;
       case 'any':
       default:
-        result = true;
-        break;
+        return true;
     }
-    return result;
   }
 
   function filterByHousingRooms(offer) {
     var housingRooms = housingRoomsSelector.value;
-    return housingRooms === 'any' ? true : offer.offer.rooms === Number(housingRooms);
+    return (housingRooms === 'any') || (offer.offer.rooms === Number(housingRooms));
   }
 
   function filterByHousingGuests(offer) {
     var housingGuests = housingGuestsSelector.value;
-    return housingGuests === 'any' ? true : offer.offer.guests === Number(housingGuests);
+    return (housingGuests === 'any') || (offer.offer.guests === Number(housingGuests));
   }
 
   function filterByHousingFeatures(offer) {
