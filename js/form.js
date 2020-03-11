@@ -39,10 +39,11 @@
 
   function handleChangeFilterForm() {
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
+    window.card.closeOpenedCard();
     window.pins.removePins();
     window.pins.renderPin(filteredOffers);
   }
-
+  var debounceHandleChangeFilterForm = window.debounce(handleChangeFilterForm);
   function disableForm() {
     formFieldsets.forEach(function (formFieldset) {
       formFieldset.setAttribute('disabled', 'disabled');
@@ -56,7 +57,7 @@
   }
 
   function onSuccessLoad(offers) {
-    window.filter.enable(handleChangeFilterForm);
+    window.filter.enable(debounceHandleChangeFilterForm);
     downloadedOffers = offers;
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
     window.pins.renderPin(filteredOffers);
@@ -64,6 +65,7 @@
 
   function activateForm() {
     window.load.getRequest(onSuccessLoad);
+    window.filter.mapFilters.reset();
     enableForm();
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
