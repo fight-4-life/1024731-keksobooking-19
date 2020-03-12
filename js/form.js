@@ -44,6 +44,7 @@
     window.pins.renderPin(filteredOffers);
   }
   var debounceHandleChangeFilterForm = window.debounce(handleChangeFilterForm);
+
   function disableForm() {
     formFieldsets.forEach(function (formFieldset) {
       formFieldset.setAttribute('disabled', 'disabled');
@@ -67,6 +68,8 @@
     window.load.getRequest(onSuccessLoad);
     window.filter.mapFilters.reset();
     enableForm();
+    window.imgUpload.avatarField.addEventListener('click', window.imgUpload.avatarChooser);
+    window.imgUpload.housingPhotoField.addEventListener('click', window.imgUpload.housingPhotoChooser);
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
@@ -125,6 +128,8 @@
     window.pins.removePins();
     disableForm();
     form.reset();
+    window.imgUpload.avatarField.removeEventListener('click', window.imgUpload.avatarChooser);
+    window.imgUpload.housingPhotoField.removeEventListener('click', window.imgUpload.housingPhotoChooser);
     onMainPinClick();
     mainPin.style.left = MAIN_PIN_X + 'px';
     mainPin.style.top = MAIN_PIN_Y + 'px';
