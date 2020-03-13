@@ -64,6 +64,7 @@
 
   function removeUploadedImg() {
     avatarPreview.querySelector('img').src = 'img/muffin-grey.svg';
+    housingPhotoPreview.innerHTML = '';
   }
 
   window.imgUpload = {
