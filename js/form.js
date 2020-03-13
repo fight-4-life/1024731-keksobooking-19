@@ -68,8 +68,8 @@
     window.load.getRequest(onSuccessLoad);
     window.filter.mapFilters.reset();
     enableForm();
-    window.imgUpload.avatarField.addEventListener('click', window.imgUpload.avatarChooser);
-    window.imgUpload.housingPhotoField.addEventListener('click', window.imgUpload.housingPhotoChooser);
+    window.imgUpload.avatarField.addEventListener('change', window.imgUpload.avatarChooser);
+    window.imgUpload.housingPhotoField.addEventListener('change', window.imgUpload.housingPhotoChooser);
     window.card.pinDrugNDrop();
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
@@ -128,8 +128,9 @@
     window.pins.removePins();
     disableForm();
     form.reset();
-    window.imgUpload.avatarField.removeEventListener('click', window.imgUpload.avatarChooser);
-    window.imgUpload.housingPhotoField.removeEventListener('click', window.imgUpload.housingPhotoChooser);
+    window.imgUpload.avatarField.removeEventListener('change', window.imgUpload.avatarChooser);
+    window.imgUpload.housingPhotoField.removeEventListener('change', window.imgUpload.housingPhotoChooser);
+    window.imgUpload.removeUploadedImg();
     onMainPinClick();
     mainPin.style.left = MAIN_PIN_X + 'px';
     mainPin.style.top = MAIN_PIN_Y + 'px';

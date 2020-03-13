@@ -5,7 +5,7 @@
   var avatarPreview = document.querySelector('.ad-form-header__preview');
   var housingPhotoField = document.querySelector('.ad-form__upload input[type=file]');
   var housingPhotoPreview = document.querySelector('.ad-form__photo');
-  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var FILE_TYPES = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];
 
   var ImgSize = {
     AVATAR_WIDTH: 40,
@@ -14,56 +14,63 @@
     HOUSING_PHOTO_HEIGHT: 70
   };
 
-  function avatarChooser() {
-    avatarField.addEventListener('change', function () {
-      var file = avatarField.files[0];
-      var fileName = file.name.toLowerCase();
-
-      var matches = FILE_TYPES.some(function (it) {
-        return fileName.endsWith(it);
-      });
-      if (matches) {
-        var reader = new FileReader();
-
-        reader.addEventListener('load', function () {
-          avatarPreview.querySelector('img').src = reader.result;
-          avatarPreview.width = ImgSize.AVATAR_WIDTH;
-          avatarPreview.height = ImgSize.AVATAR_HEIGHT;
-        });
-
-        reader.readAsDataURL(file);
-      }
-    });
+  function validFileType(file) {
+    return FILE_TYPES.includes(file.type);
   }
 
-  function housingPhotoChooser() {
-    housingPhotoField.addEventListener('change', function () {
-      var file = housingPhotoField.files[0];
-      var fileName = file.name.toLowerCase();
+  function avatarChooser(event) {
+    avatarField = event.target;
+    var file = avatarField.files[0];
+    if (!file) {
+      return;
+    }
 
-      var matches = FILE_TYPES.some(function (it) {
-        return fileName.endsWith(it);
+    var matches = validFileType(file);
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        avatarPreview.querySelector('img').src = reader.result;
+        avatarPreview.width = ImgSize.AVATAR_WIDTH;
+        avatarPreview.height = ImgSize.AVATAR_HEIGHT;
       });
-      if (matches) {
-        var reader = new FileReader();
 
-        reader.addEventListener('load', function () {
-          var housingPhoto = document.createElement('img');
-          housingPhoto.src = reader.result;
-          housingPhoto.width = ImgSize.HOUSING_PHOTO_WIDTH;
-          housingPhoto.height = ImgSize.HOUSING_PHOTO_HEIGHT;
-          housingPhotoPreview.appendChild(housingPhoto);
-        });
+      reader.readAsDataURL(file);
+    }
+  }
 
-        reader.readAsDataURL(file);
-      }
-    });
+  function housingPhotoChooser(event) {
+    housingPhotoField = event.target;
+    var file = housingPhotoField.files[0];
+
+    var matches = validFileType(file);
+    if (!file) {
+      return;
+    }
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        var housingPhoto = document.createElement('img');
+        housingPhoto.src = reader.result;
+        housingPhoto.width = ImgSize.HOUSING_PHOTO_WIDTH;
+        housingPhoto.height = ImgSize.HOUSING_PHOTO_HEIGHT;
+        housingPhotoPreview.appendChild(housingPhoto);
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function removeUploadedImg() {
+    avatarPreview.querySelector('img').src = 'img/muffin-grey.svg';
   }
 
   window.imgUpload = {
     avatarChooser: avatarChooser,
     avatarField: avatarField,
     housingPhotoChooser: housingPhotoChooser,
-    housingPhotoField: housingPhotoField
+    housingPhotoField: housingPhotoField,
+    removeUploadedImg: removeUploadedImg
   };
 })();
