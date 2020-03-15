@@ -58,8 +58,11 @@
   }
 
   function onSuccessLoad(offers) {
+    var validOffers = offers.filter(function (offer) {
+      return !!offer.offer;
+    });
     window.filter.enable(debounceHandleChangeFilterForm);
-    downloadedOffers = offers;
+    downloadedOffers = validOffers;
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
     window.pins.renderPin(filteredOffers);
   }
@@ -169,7 +172,15 @@
   });
 
   resetFormButton.addEventListener('click', function () {
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    window.pins.removePins();
+    disableForm();
     adForm.reset();
+    onMainPinClick();
+    mainPin.style.left = MAIN_PIN_X + 'px';
+    mainPin.style.top = MAIN_PIN_Y + 'px';
+    updateCurrentOfferLocation(currentOffer.location);
   });
 
   window.form = {
