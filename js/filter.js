@@ -17,6 +17,7 @@
     selectFilterNodeList.forEach(function (selectFilter) {
       selectFilter.removeAttribute('disabled');
     });
+    mapFilters.querySelector('.map__features').removeAttribute('disabled', 'disabled');
     mapFilters.addEventListener('change', eventHandler);
   }
 
@@ -24,6 +25,7 @@
     selectFilterNodeList.forEach(function (selectFilter) {
       selectFilter.setAttribute('disabled', 'disabled');
     });
+    mapFilters.querySelector('.map__features').setAttribute('disabled', 'disabled');
     mapFilters.removeEventListener('change', eventHandler);
   }
 
