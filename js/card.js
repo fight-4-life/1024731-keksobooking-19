@@ -102,6 +102,7 @@
     function onCloseButtonClick(evt) {
       if (evt.target.type === 'button') {
         map.removeChild(cardElement);
+        window.pins.removeMapPinActiveClass();
         cardElement.removeEventListener('click', onCloseButtonClick);
         window.removeEventListener('keydown', onEscapeBtn);
       }
@@ -112,6 +113,7 @@
     function onEscapeBtn(evt) {
       if (evt.key === ESC_KEY) {
         map.removeChild(cardElement);
+        window.pins.removeMapPinActiveClass();
         cardElement.removeEventListener('click', onCloseButtonClick);
         window.removeEventListener('keydown', onEscapeBtn);
       }
