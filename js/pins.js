@@ -22,10 +22,17 @@
       pinElement.addEventListener('click', function () {
         window.card.closeOpenedCard();
         window.card.renderCards(offer);
+        // pinElement.setAttribute('class', 'map__pin--active');
       });
     });
     pinListElement.appendChild(fragment);
   }
+
+  // function removePinsActiveClass() {
+  //   document.querySelectorAll('.map__pin').forEach(function (item) {
+  //     item.classList.remove('map__pin--active');
+  //   });
+  // }
 
   function removePins() {
     var mapPinsItems = document.querySelectorAll('.map__pin[type="button"]');
