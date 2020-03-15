@@ -112,7 +112,7 @@
 
     function onEscapeBtn(evt) {
       if (evt.key === ESC_KEY) {
-        map.removeChild(cardElement);
+        closeOpenedCard();
         window.pins.removeMapPinActiveClass();
         cardElement.removeEventListener('click', onCloseButtonClick);
         window.removeEventListener('keydown', onEscapeBtn);
