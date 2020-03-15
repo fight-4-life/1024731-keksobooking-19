@@ -130,7 +130,7 @@
   // ===>> Функция перетаскивания метки <<===
 
   function pinDrugNDrop() {
-    var mainPinHandle = document.querySelector('.map__pin--main');
+    var mainPinHandle = window.form.mainPin;
     var mapWidth = document.querySelector('body').clientWidth;
     var mainPinHeight = window.form.MAIN_PIN_HEIGHT_AND_WIDTH + window.form.SPIRE_HEIGHT;
     var helfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
