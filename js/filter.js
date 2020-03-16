@@ -3,6 +3,9 @@
 (function () {
 
   var MAX_PINS_QUANTITY = 5;
+  var LOW_HOUSING_PRICE = 10000;
+  var HIGH_HOUSING_PRICE = 50000;
+
   var mapFilters = document.querySelector('.map__filters');
   var housingTypeSelector = document.querySelector('#housing-type');
   var housingPriceSelector = document.querySelector('#housing-price');
@@ -10,8 +13,6 @@
   var housingGuestsSelector = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelectorAll('.map__checkbox');
   var selectFilters = mapFilters.querySelectorAll('select');
-  var LOW_HOUSING_PRICE = 10000;
-  var HIGH_HOUSING_PRICE = 50000;
 
   function enableFilter(eventHandler) {
     selectFilters.forEach(function (selectFilter) {

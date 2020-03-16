@@ -2,17 +2,16 @@
 
 (function () {
 
+  var ESC_KEY = 'Escape';
+  var MIN_HEIGHT = 130;
+  var MAX_HEIGHT = 630;
+
   var housingTypesMap = {
     'palace': 'Дворец',
     'flat': 'Квартира',
     'house': 'Дом',
     'bungalo': 'Бунгало'
   };
-
-  var ESC_KEY = 'Escape';
-
-  var MIN_HEIGHT = 130;
-  var MAX_HEIGHT = 630;
 
   function processOfferData(element, hasData, text) {
     if (hasData) {
@@ -137,8 +136,8 @@
     var mainPinHeight = window.form.MAIN_PIN_HEIGHT_AND_WIDTH + window.form.SPIRE_HEIGHT;
     var helfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
     var currentPinCoordinates = {
-      x: window.form.currentOffer.location.x,
-      y: window.form.currentOffer.location.y
+      x: window.form.currentOfferLocation.x,
+      y: window.form.currentOfferLocation.y
     };
 
     mainPinHandle.addEventListener('mousedown', function (evt) {

@@ -4,6 +4,7 @@
 
   var URL_GET = 'https://js.dump.academy/keksobooking/data';
   var URL_POST = 'https://js.dump.academy/keksobooking';
+
   var StatusCode = {
     OK: 200
   };

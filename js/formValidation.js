@@ -2,6 +2,10 @@
 
 (function () {
 
+  var advertisingForm = window.form.advertisingForm;
+  var capacitySelect = advertisingForm.querySelector('#capacity');
+  var roomsSelect = advertisingForm.querySelector('#room_number');
+
   var HousingType = {
     BUNGALO: 'bungalo',
     FLAT: 'flat',
@@ -15,10 +19,6 @@
     HOUSE: '5000',
     PALACE: '10000'
   };
-
-  var advertisingForm = window.form.advertisingForm;
-  var capacitySelect = advertisingForm.querySelector('#capacity');
-  var roomsSelect = advertisingForm.querySelector('#room_number');
 
   function roomsToGuestsValidation() {
     var roomsValue = Number(roomsSelect.value);
