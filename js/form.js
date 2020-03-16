@@ -6,9 +6,9 @@
   var MAIN_PIN_HEIGHT_AND_WIDTH = 62;
   var SPIRE_HEIGHT = 22;
   var addressInput = document.querySelector('#address');
-  var adForm = document.querySelector('.ad-form');
-  var resetFormButton = adForm.querySelector('.ad-form__reset');
-  var formFieldsets = adForm.querySelectorAll('fieldset');
+  var advertisingForm = document.querySelector('.ad-form');
+  var resetFormButton = advertisingForm.querySelector('.ad-form__reset');
+  var formFieldsets = advertisingForm.querySelectorAll('fieldset');
   var mainPin = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var LEFT_BUTTON_MOUSE = 0;
@@ -77,7 +77,7 @@
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
     window.formValidation.getTimeSync();
-    adForm.classList.remove('ad-form--disabled');
+    advertisingForm.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
     currentOffer.location.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
     updateCurrentOfferLocation(currentOffer.location);
@@ -110,27 +110,27 @@
     var successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successMessageTemplate.cloneNode(true);
 
-    var onSuccessMessageClick = function () {
+    function onSuccessMessageClick() {
       window.removeEventListener('click', onSuccessMessageClick);
       window.removeEventListener('keydown', onSuccessMessageEscPress);
       successMessage.remove();
-    };
-    var onSuccessMessageEscPress = function (evt) {
+    }
+    function onSuccessMessageEscPress(evt) {
       if (evt.key === window.card.ESC_KEY) {
         window.removeEventListener('click', onSuccessMessageClick);
         window.removeEventListener('keydown', onSuccessMessageEscPress);
         successMessage.remove();
       }
-    };
+    }
 
     window.addEventListener('click', onSuccessMessageClick);
     window.addEventListener('keydown', onSuccessMessageEscPress);
     document.body.appendChild(successMessage);
     map.classList.add('map--faded');
-    adForm.classList.add('ad-form--disabled');
+    advertisingForm.classList.add('ad-form--disabled');
     window.pins.removePins();
     disableForm();
-    adForm.reset();
+    advertisingForm.reset();
     window.imgUpload.avatarField.removeEventListener('change', window.imgUpload.avatarChooser);
     window.imgUpload.housingPhotoField.removeEventListener('change', window.imgUpload.housingPhotoChooser);
     window.imgUpload.removeUploadedImg();
@@ -166,17 +166,17 @@
     main.appendChild(errorMessage);
   }
 
-  adForm.addEventListener('submit', function (evt) {
+  advertisingForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.load.postRequest(new FormData(adForm), onPostSuccess, onPostError);
+    window.load.postRequest(new FormData(advertisingForm), onPostSuccess, onPostError);
   });
 
   resetFormButton.addEventListener('click', function () {
     map.classList.add('map--faded');
-    adForm.classList.add('ad-form--disabled');
+    advertisingForm.classList.add('ad-form--disabled');
     window.pins.removePins();
     disableForm();
-    adForm.reset();
+    advertisingForm.reset();
     onMainPinClick();
     mainPin.style.left = MAIN_PIN_X + 'px';
     mainPin.style.top = MAIN_PIN_Y + 'px';
@@ -192,6 +192,6 @@
     SPIRE_HEIGHT: SPIRE_HEIGHT,
     onMainPinClick: onMainPinClick,
     mainPin: mainPin,
-    adForm: adForm
+    advertisingForm: advertisingForm
   };
 })();

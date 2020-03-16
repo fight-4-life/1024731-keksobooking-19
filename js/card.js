@@ -104,22 +104,22 @@
         map.removeChild(cardElement);
         window.pins.removeMapPinActiveClass();
         cardElement.removeEventListener('click', onCloseButtonClick);
-        window.removeEventListener('keydown', onEscapeBtn);
+        window.removeEventListener('keydown', onEscapeKeydown);
       }
     }
 
     // ===>> Функция закрытия модального окна на клавишу Escape <<===
 
-    function onEscapeBtn(evt) {
+    function onEscapeKeydown(evt) {
       if (evt.key === ESC_KEY) {
         closeOpenedCard();
         window.pins.removeMapPinActiveClass();
         cardElement.removeEventListener('click', onCloseButtonClick);
-        window.removeEventListener('keydown', onEscapeBtn);
+        window.removeEventListener('keydown', onEscapeKeydown);
       }
     }
     cardElement.addEventListener('click', onCloseButtonClick);
-    window.addEventListener('keydown', onEscapeBtn);
+    window.addEventListener('keydown', onEscapeKeydown);
   }
   // ===>> Функция закрытия ранее открытого модального окна <<===
   function closeOpenedCard() {

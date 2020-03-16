@@ -16,9 +16,9 @@
     PALACE: '10000'
   };
 
-  var adForm = document.querySelector('.ad-form');
-  var capacitySelect = adForm.querySelector('#capacity');
-  var roomsSelect = adForm.querySelector('#room_number');
+  var advertisingForm = window.form.advertisingForm;
+  var capacitySelect = advertisingForm.querySelector('#capacity');
+  var roomsSelect = advertisingForm.querySelector('#room_number');
 
   function roomsToGuestsValidation() {
     var roomsValue = Number(roomsSelect.value);
@@ -36,8 +36,8 @@
   }
 
   function housingTypeToMinPriceValidation() {
-    var typeSelect = adForm.querySelector('#type');
-    var pricePerNight = adForm.querySelector('#price');
+    var typeSelect = advertisingForm.querySelector('#type');
+    var pricePerNight = advertisingForm.querySelector('#price');
     var type = typeSelect.value;
 
     switch (type) {
@@ -62,8 +62,8 @@
   }
 
   function getTimeSync() {
-    var timeInSelect = adForm.querySelector('#timein');
-    var timeOutSelect = adForm.querySelector('#timeout');
+    var timeInSelect = advertisingForm.querySelector('#timein');
+    var timeOutSelect = advertisingForm.querySelector('#timeout');
     var timeInOptions = timeInSelect.querySelectorAll('option');
     var timeOutOptions = timeOutSelect.querySelectorAll('option');
 

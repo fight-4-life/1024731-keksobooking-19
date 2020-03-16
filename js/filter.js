@@ -9,12 +9,12 @@
   var housingRoomsSelector = document.querySelector('#housing-rooms');
   var housingGuestsSelector = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelectorAll('.map__checkbox');
-  var selectFilterNodeList = mapFilters.querySelectorAll('select');
+  var selectFilters = mapFilters.querySelectorAll('select');
   var LOW_HOUSING_PRICE = 10000;
-  var HIGHT_HOUSING_PRICE = 50000;
+  var HIGH_HOUSING_PRICE = 50000;
 
   function enableFilter(eventHandler) {
-    selectFilterNodeList.forEach(function (selectFilter) {
+    selectFilters.forEach(function (selectFilter) {
       selectFilter.removeAttribute('disabled');
     });
     mapFilters.querySelector('.map__features').removeAttribute('disabled', 'disabled');
@@ -22,7 +22,7 @@
   }
 
   function disableFilters(eventHandler) {
-    selectFilterNodeList.forEach(function (selectFilter) {
+    selectFilters.forEach(function (selectFilter) {
       selectFilter.setAttribute('disabled', 'disabled');
     });
     mapFilters.querySelector('.map__features').setAttribute('disabled', 'disabled');
@@ -41,9 +41,9 @@
       case 'low':
         return offer.offer.price < LOW_HOUSING_PRICE;
       case 'middle':
-        return offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGHT_HOUSING_PRICE;
+        return offer.offer.price >= LOW_HOUSING_PRICE && offer.offer.price <= HIGH_HOUSING_PRICE;
       case 'high':
-        return offer.offer.price > HIGHT_HOUSING_PRICE;
+        return offer.offer.price > HIGH_HOUSING_PRICE;
       default:
         return true;
     }
