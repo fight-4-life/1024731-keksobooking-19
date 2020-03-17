@@ -27,7 +27,7 @@
     window.pins.removePins();
     window.pins.renderPin(filteredOffers);
   }
-  var debounceHandleChangeFilterForm = window.debounce(onChangeFilterForm);
+  var debounceOnChangeFilterForm = window.debounce(onChangeFilterForm);
 
   function disableForm() {
     formFieldsets.forEach(function (formFieldset) {
@@ -45,7 +45,7 @@
     var validOffers = offers.filter(function (offer) {
       return !!offer.offer;
     });
-    window.filter.enable(debounceHandleChangeFilterForm);
+    window.filter.enable(debounceOnChangeFilterForm);
     downloadedOffers = validOffers;
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
     window.pins.renderPin(filteredOffers);
