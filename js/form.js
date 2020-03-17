@@ -8,12 +8,12 @@
   var MAIN_PIN_HEIGHT_AND_WIDTH = 62;
   var SPIRE_HEIGHT = 22;
 
-  var addressInput = document.querySelector('#address');
-  var advertisingForm = document.querySelector('.ad-form');
-  var resetFormButton = advertisingForm.querySelector('.ad-form__reset');
-  var formFieldsets = advertisingForm.querySelectorAll('fieldset');
-  var mainPin = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
+  var addressInputElement = document.querySelector('#address');
+  var advertisingFormElement = document.querySelector('.ad-form');
+  var resetFormButtonElement = advertisingFormElement.querySelector('.ad-form__reset');
+  var formFieldsets = advertisingFormElement.querySelectorAll('fieldset');
+  var mainPinElement = document.querySelector('.map__pin--main');
+  var mapElement = document.querySelector('.map');
   var downloadedOffers = null;
 
   var currentOfferLocation = {
@@ -61,7 +61,7 @@
     window.formValidation.roomsToGuestsValidation();
     window.formValidation.housingTypeToMinPriceValidation();
     window.formValidation.getTimeSync();
-    advertisingForm.classList.remove('ad-form--disabled');
+    advertisingFormElement.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
     currentOfferLocation.y = MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH + SPIRE_HEIGHT;
     updateCurrentOfferLocation(currentOfferLocation);
@@ -74,7 +74,7 @@
   }
 
   function updateCurrentOfferLocation(location) {
-    addressInput.value = location.x + ', ' + location.y;
+    addressInputElement.value = location.x + ', ' + location.y;
   }
 
   function onMainPinClick() {
@@ -108,17 +108,17 @@
     window.addEventListener('click', onSuccessMessageClick);
     window.addEventListener('keydown', onSuccessMessageEscPress);
     document.body.appendChild(successMessage);
-    map.classList.add('map--faded');
-    advertisingForm.classList.add('ad-form--disabled');
+    mapElement.classList.add('map--faded');
+    advertisingFormElement.classList.add('ad-form--disabled');
     window.pins.removePins();
     disableForm();
-    advertisingForm.reset();
+    advertisingFormElement.reset();
     window.imgUpload.avatarField.removeEventListener('change', window.imgUpload.avatarChooser);
     window.imgUpload.housingPhotoField.removeEventListener('change', window.imgUpload.housingPhotoChooser);
     window.imgUpload.removeUploadedImg();
     onMainPinClick();
-    mainPin.style.left = MAIN_PIN_X + 'px';
-    mainPin.style.top = MAIN_PIN_Y + 'px';
+    mainPinElement.style.left = MAIN_PIN_X + 'px';
+    mainPinElement.style.top = MAIN_PIN_Y + 'px';
     updateCurrentOfferLocation(currentOfferLocation);
   }
 
@@ -144,24 +144,24 @@
     }
     window.addEventListener('click', onPostError);
     window.addEventListener('keydown', onErrorMessageEscPress);
-    var main = document.querySelector('main');
-    main.appendChild(errorMessage);
+    var mainElement = document.querySelector('main');
+    mainElement.appendChild(errorMessage);
   }
 
-  advertisingForm.addEventListener('submit', function (evt) {
+  advertisingFormElement.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.load.postRequest(new FormData(advertisingForm), onPostSuccess, onPostError);
+    window.load.postRequest(new FormData(advertisingFormElement), onPostSuccess, onPostError);
   });
 
-  resetFormButton.addEventListener('click', function () {
-    map.classList.add('map--faded');
-    advertisingForm.classList.add('ad-form--disabled');
+  resetFormButtonElement.addEventListener('click', function () {
+    mapElement.classList.add('map--faded');
+    advertisingFormElement.classList.add('ad-form--disabled');
     window.pins.removePins();
     disableForm();
-    advertisingForm.reset();
+    advertisingFormElement.reset();
     onMainPinClick();
-    mainPin.style.left = MAIN_PIN_X + 'px';
-    mainPin.style.top = MAIN_PIN_Y + 'px';
+    mainPinElement.style.left = MAIN_PIN_X + 'px';
+    mainPinElement.style.top = MAIN_PIN_Y + 'px';
     updateCurrentOfferLocation(currentOfferLocation);
   });
 
@@ -173,7 +173,7 @@
     MAIN_PIN_HEIGHT_AND_WIDTH: MAIN_PIN_HEIGHT_AND_WIDTH,
     SPIRE_HEIGHT: SPIRE_HEIGHT,
     onMainPinClick: onMainPinClick,
-    mainPin: mainPin,
-    advertisingForm: advertisingForm
+    mainPin: mainPinElement,
+    advertisingForm: advertisingFormElement
   };
 })();

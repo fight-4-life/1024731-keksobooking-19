@@ -122,9 +122,9 @@
   }
   // ===>> Функция закрытия ранее открытого модального окна <<===
   function closeOpenedCard() {
-    var popupItem = document.querySelector('.map__card');
-    if (popupItem) {
-      popupItem.remove();
+    var popupItemElement = document.querySelector('.map__card');
+    if (popupItemElement) {
+      popupItemElement.remove();
     }
   }
 

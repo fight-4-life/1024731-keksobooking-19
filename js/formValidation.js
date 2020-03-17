@@ -3,8 +3,11 @@
 (function () {
 
   var advertisingForm = window.form.advertisingForm;
-  var capacitySelect = advertisingForm.querySelector('#capacity');
-  var roomsSelect = advertisingForm.querySelector('#room_number');
+  var capacitySelectElement = advertisingForm.querySelector('#capacity');
+  var roomsSelectElement = advertisingForm.querySelector('#room_number');
+
+  var NOT_FOR_GUESTS_VALUE = 0;
+  var MAX_ROOMS_VALUE = 100;
 
   var HousingType = {
     BUNGALO: 'bungalo',
@@ -20,69 +23,76 @@
     PALACE: '10000'
   };
 
-  function roomsToGuestsValidation() {
-    var roomsValue = Number(roomsSelect.value);
-    var guestsValue = Number(capacitySelect.value);
+  var ValidationMessage = {
+    ONLY_100_ROOMS: 'Только 100 комнат!',
+    NOT_FOR_GUESTS: 'Не для гостей!',
+    TOO_MUCH_GUESTS: 'Слишком много гостей!',
+    EMPTY_MESSAGE: ''
+  };
 
-    if (guestsValue === 0 && roomsValue !== 100) {
-      capacitySelect.setCustomValidity('Только 100 комнат!');
-    } else if (guestsValue !== 0 && roomsValue === 100) {
-      capacitySelect.setCustomValidity('Не для гостей!');
+  function roomsToGuestsValidation() {
+    var roomsValue = Number(roomsSelectElement.value);
+    var guestsValue = Number(capacitySelectElement.value);
+
+    if (guestsValue === NOT_FOR_GUESTS_VALUE && roomsValue !== MAX_ROOMS_VALUE) {
+      capacitySelectElement.setCustomValidity(ValidationMessage.ONLY_100_ROOMS);
+    } else if (guestsValue !== NOT_FOR_GUESTS_VALUE && roomsValue === MAX_ROOMS_VALUE) {
+      capacitySelectElement.setCustomValidity(ValidationMessage.NOT_FOR_GUESTS);
     } else if (roomsValue < guestsValue) {
-      capacitySelect.setCustomValidity('Слишком много гостей!');
+      capacitySelectElement.setCustomValidity(ValidationMessage.TOO_MUCH_GUESTS);
     } else {
-      capacitySelect.setCustomValidity('');
+      capacitySelectElement.setCustomValidity(ValidationMessage.EMPTY_MESSAGE);
     }
   }
 
   function housingTypeToMinPriceValidation() {
-    var typeSelect = advertisingForm.querySelector('#type');
-    var pricePerNight = advertisingForm.querySelector('#price');
-    var type = typeSelect.value;
+    var typeSelectElement = advertisingForm.querySelector('#type');
+    var pricePerNightElement = advertisingForm.querySelector('#price');
+    var type = typeSelectElement.value;
 
     switch (type) {
       case HousingType.BUNGALO:
-        pricePerNight.setAttribute('min', HousingPrice.BUNGALO);
-        pricePerNight.setAttribute('placeholder', HousingPrice.BUNGALO);
+        pricePerNightElement.setAttribute('min', HousingPrice.BUNGALO);
+        pricePerNightElement.setAttribute('placeholder', HousingPrice.BUNGALO);
         break;
       case HousingType.FLAT:
-        pricePerNight.setAttribute('min', HousingPrice.FLAT);
-        pricePerNight.setAttribute('placeholder', HousingPrice.FLAT);
+        pricePerNightElement.setAttribute('min', HousingPrice.FLAT);
+        pricePerNightElement.setAttribute('placeholder', HousingPrice.FLAT);
         break;
       case HousingType.HOUSE:
-        pricePerNight.setAttribute('min', HousingPrice.HOUSE);
-        pricePerNight.setAttribute('placeholder', HousingPrice.HOUSE);
+        pricePerNightElement.setAttribute('min', HousingPrice.HOUSE);
+        pricePerNightElement.setAttribute('placeholder', HousingPrice.HOUSE);
         break;
       case HousingType.PALACE:
-        pricePerNight.setAttribute('min', HousingPrice.PALACE);
-        pricePerNight.setAttribute('placeholder', HousingPrice.PALACE);
+        pricePerNightElement.setAttribute('min', HousingPrice.PALACE);
+        pricePerNightElement.setAttribute('placeholder', HousingPrice.PALACE);
         break;
     }
-    typeSelect.addEventListener('change', housingTypeToMinPriceValidation);
+    typeSelectElement.addEventListener('change', housingTypeToMinPriceValidation);
   }
 
   function getTimeSync() {
-    var timeInSelect = advertisingForm.querySelector('#timein');
-    var timeOutSelect = advertisingForm.querySelector('#timeout');
-    var timeInOptions = timeInSelect.querySelectorAll('option');
-    var timeOutOptions = timeOutSelect.querySelectorAll('option');
+    var timeInSelectElement = advertisingForm.querySelector('#timein');
+    var timeOutSelectElement = advertisingForm.querySelector('#timeout');
+    var timeInOptionsElement = timeInSelectElement.querySelectorAll('option');
+    var timeOutOptionsElement = timeOutSelectElement.querySelectorAll('option');
 
     function onChangeTimeIn() {
-      timeInOptions.forEach(function (item, index) {
+      timeInOptionsElement.forEach(function (item, index) {
         if (item.selected) {
-          timeOutOptions[index].selected = true;
+          timeOutOptionsElement[index].selected = true;
         }
       });
     }
     function onChangeTimeOut() {
-      timeOutOptions.forEach(function (item, index) {
+      timeOutOptionsElement.forEach(function (item, index) {
         if (item.selected) {
-          timeInOptions[index].selected = true;
+          timeInOptionsElement[index].selected = true;
         }
       });
     }
-    timeInSelect.addEventListener('change', onChangeTimeIn);
-    timeOutSelect.addEventListener('change', onChangeTimeOut);
+    timeInSelectElement.addEventListener('change', onChangeTimeIn);
+    timeOutSelectElement.addEventListener('change', onChangeTimeOut);
   }
 
   window.formValidation = {

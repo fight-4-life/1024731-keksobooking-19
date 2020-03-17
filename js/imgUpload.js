@@ -5,9 +5,9 @@
   var FILE_TYPES = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];
 
   var avatarField = document.querySelector('.ad-form__field input[type=file]');
-  var avatarPreview = document.querySelector('.ad-form-header__preview');
+  var avatarPreviewElement = document.querySelector('.ad-form-header__preview');
   var housingPhotoField = document.querySelector('.ad-form__upload input[type=file]');
-  var housingPhotoPreview = document.querySelector('.ad-form__photo');
+  var housingPhotoPreviewElement = document.querySelector('.ad-form__photo');
 
   var ImgSize = {
     AVATAR_WIDTH: 40,
@@ -32,9 +32,9 @@
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        avatarPreview.querySelector('img').src = reader.result;
-        avatarPreview.width = ImgSize.AVATAR_WIDTH;
-        avatarPreview.height = ImgSize.AVATAR_HEIGHT;
+        avatarPreviewElement.querySelector('img').src = reader.result;
+        avatarPreviewElement.width = ImgSize.AVATAR_WIDTH;
+        avatarPreviewElement.height = ImgSize.AVATAR_HEIGHT;
       });
 
       reader.readAsDataURL(file);
@@ -57,7 +57,7 @@
         housingPhoto.src = reader.result;
         housingPhoto.width = ImgSize.HOUSING_PHOTO_WIDTH;
         housingPhoto.height = ImgSize.HOUSING_PHOTO_HEIGHT;
-        housingPhotoPreview.appendChild(housingPhoto);
+        housingPhotoPreviewElement.appendChild(housingPhoto);
       });
 
       reader.readAsDataURL(file);
@@ -65,8 +65,8 @@
   }
 
   function removeUploadedImg() {
-    avatarPreview.querySelector('img').src = 'img/muffin-grey.svg';
-    housingPhotoPreview.innerHTML = '';
+    avatarPreviewElement.querySelector('img').src = 'img/muffin-grey.svg';
+    housingPhotoPreviewElement.innerHTML = '';
   }
 
   window.imgUpload = {
