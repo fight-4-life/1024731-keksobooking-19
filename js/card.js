@@ -26,7 +26,7 @@
     var featuresListElement = cardElement.querySelector('.popup__features');
     var featuresList = featuresListElement.querySelectorAll('.popup__feature');
 
-    if (features.length === 0) {
+    if (!features.length) {
       featuresListElement.style.display = 'none';
       return;
     }
@@ -42,7 +42,7 @@
   }
   function renderPhotos(cardElement, photos) {
     var photosElement = cardElement.querySelector('.popup__photos');
-    if (photos.length === 0) {
+    if (!photos.length) {
       photosElement.style.display = 'none';
       return;
     }
