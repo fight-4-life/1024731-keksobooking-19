@@ -134,7 +134,7 @@
     var mainPinHandle = window.form.mainPin;
     var mapWidth = document.querySelector('body').clientWidth;
     var mainPinHeight = window.form.MAIN_PIN_HEIGHT_AND_WIDTH + window.form.SPIRE_HEIGHT;
-    var helfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
+    var halfMainPinWidth = window.form.MAIN_PIN_HEIGHT_AND_WIDTH / 2;
     var currentPinCoordinates = {
       x: window.form.currentOfferLocation.x,
       y: window.form.currentOfferLocation.y
@@ -168,9 +168,9 @@
           mainPinHandle.style.top = coordinateY + 'px';
           currentPinCoordinates.y = coordinateY + mainPinHeight;
         }
-        if (coordinateX <= (mapWidth - helfMainPinWidth) && coordinateX >= (mapWidth - mapWidth - helfMainPinWidth)) {
+        if (coordinateX <= (mapWidth - halfMainPinWidth) && coordinateX >= (mapWidth - mapWidth - halfMainPinWidth)) {
           mainPinHandle.style.left = coordinateX + 'px';
-          currentPinCoordinates.x = coordinateX + helfMainPinWidth;
+          currentPinCoordinates.x = coordinateX + halfMainPinWidth;
         }
         window.form.updateCurrentOfferLocation(currentPinCoordinates);
       }
