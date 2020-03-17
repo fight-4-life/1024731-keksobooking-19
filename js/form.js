@@ -21,13 +21,13 @@
     y: MAIN_PIN_Y + MAIN_PIN_HEIGHT_AND_WIDTH / 2
   };
 
-  function handleChangeFilterForm() {
+  function onChangeFilterForm() {
     var filteredOffers = window.filter.returnFiltered(downloadedOffers);
     window.card.closeOpenedCard();
     window.pins.removePins();
     window.pins.renderPin(filteredOffers);
   }
-  var debounceHandleChangeFilterForm = window.debounce(handleChangeFilterForm);
+  var debounceHandleChangeFilterForm = window.debounce(onChangeFilterForm);
 
   function disableForm() {
     formFieldsets.forEach(function (formFieldset) {
